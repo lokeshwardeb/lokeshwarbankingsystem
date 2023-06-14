@@ -1,21 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $website_name ?> || Banking system</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-    <main>
-    Welcome to the banking system
+<?php
+// require  "inc/const.php";
 
-    </main>
+$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+// $uri = $_SERVER['REQUEST_URI'];
+echo "<pre>";
+var_dump($uri);
+echo "</pre>";
+// created the routes array
+
+// register your routes uri and the url on this Routes array
+$Routes = [
+    '/' => __DIR__ . "/controllers/index.php",
+    '/dashboard' => __DIR__ . "/controllers/index.php",
+    '/users' =>__DIR__ .  "/controllers/users.php",
+];
+
+// checking if the requested url is registed on the route array
+if(array_key_exists($uri, $Routes)){
+    require $Routes[$uri];
+}else{
+    require __DIR__ . "/controllers/error_page.php";
+}
+
+// if($uri === '/'){
+//     require  __DIR__ . "/controllers/index.php";
+//     // realpath("controllers/index.php") ;
+//     // require  "controllers/index.php";
+// }else{
+//     require   __DIR__ .  "/controllers/users.php";
+// }
+// echo 'hi';
 
 
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/script.js"></script>
 
-</body>
-</html>
+
+?>
