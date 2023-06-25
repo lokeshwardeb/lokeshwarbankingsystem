@@ -64,7 +64,7 @@ include __DIR__ . "/../views.php";
 
     ?>
 
-    <div class="container-fluid " style="height: 100vh;">
+    <div class="container-fluid " style="min-height: 100vh; height:auto">
         <?php
         include "inc/_navbar.php";
 
@@ -74,7 +74,7 @@ include __DIR__ . "/../views.php";
 
 
    
-            <div class="col-10 bg-light" style="height: 100vh;">
+            <div class="col-10 bg-light" style="min-height: 100vh; height:auto">
                 <div class="container-fluid">
                     <?php
                     include "inc/_search.php";
@@ -98,19 +98,19 @@ include __DIR__ . "/../views.php";
                     <div class="container mt-4">
                         <div class="row">
                             <div class="col-3">
-                                <a href="">Create a new savings account</a>
+                                <a href="/create_account">Create a new savings account</a>
 
                             </div>
                             <div class="col-3">
-                                <a href="">Create a new savings account</a>
+                                <a href="/create_account">Create a new students account</a>
 
                             </div>
                             <div class="col-3">
-                                <a href="">Create a new savings account</a>
+                                <a href="/create_account">Create a new joint account</a>
 
                             </div>
                             <div class="col-3">
-                                <a href="">Create a new savings account</a>
+                                <a href="/create_account">Create a new bussiness account</a>
 
                             </div>
                         </div>
@@ -137,7 +137,7 @@ include __DIR__ . "/../views.php";
 
     </div>
 
-    <button type="submit" class="btn btn-dark mb-4 btn-sm-sm">Create a Account</button>
+    <a href="/create_account"><button type="submit" class="btn btn-dark mb-4 btn-sm-sm">Create a Account</button></a>
 
     <?php
 
@@ -158,6 +158,7 @@ include __DIR__ . "/../views.php";
             <td>'.$row["account_no"].'</td>
             <td>'.$row["ac_holder_name"].'</td>
             <td >'.$row["datetime"].'</td>
+            <td ><a href="/manage_account?ac_no='.$row['account_no'].'"><button class="btn btn-dark">Mannage account</button></a></td>
           </tr>
             
             ';

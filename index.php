@@ -15,6 +15,10 @@ $Routes = [
     // '/phpdevelopment/lokeshwarbankingsystem/users' => __DIR__ . "/controllers/index.php",
     '/dashboard' => __DIR__ . "/controllers/index.php",
     '/users' =>__DIR__ .  "/controllers/users.php",
+    '/manage_account' =>__DIR__ .  "/controllers/manage_account.php",
+    '/print_ac_statement' =>__DIR__ .  "/controllers/print_ac_statement.php",
+    '/create_account' =>__DIR__ .  "/controllers/create_account_form.php",
+    '/make_transaction' =>__DIR__ .  "/controllers/make_transaction_form.php",
 ];
 
 // checking if the requested url is registed on the route array
