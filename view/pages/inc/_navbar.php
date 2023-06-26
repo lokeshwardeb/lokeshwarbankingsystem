@@ -1,4 +1,6 @@
 <?php
+
+// session_start();
 include __DIR__ .  "/const.php";
 
 ?>
@@ -14,11 +16,13 @@ include __DIR__ .  "/const.php";
                     <ul>
                         <li><a href="<?php echo  '/dashboard' ?>">Dashboard</a></li>
                         <li><a href="<?php echo  '/users' ?>">User Account</a></li>
-                        <li><a href="">Total </a></li>
+                        <li><a href="<?php echo  '/total_fund' ?>">Total </a></li>
                         <li><a href="">Revenue</a></li>
+                        <li><a href="<?php echo  '/add_admin' ?>">Add Admin</a></li>
+                        <li><a href="<?php echo  '/logout' ?>">logout</a></li>
                     </ul>
                     <div class="toggle-bar">
-                        <img src="t.png" width="20px" height="20px" alt="" class="rounded-circle"> Lokeshwar Deb
+                        <img src="./assets/img/upload/admin_ac_holders/img/<?php echo $_SESSION['admin_photo'] ?>" width="30px" height="30px" alt="" class="rounded-circle"> <?php echo $_SESSION['admin_username'] ?>
                     </div>
                 </div>
             </div>

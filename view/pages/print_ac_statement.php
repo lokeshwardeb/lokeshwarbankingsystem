@@ -6,6 +6,7 @@
 <?php
 $website_name = "lokbanksys";
 // include __DIR__ . "/../../inc/_header.php";
+
 require __DIR__ . "/inc/_header.php";
 // require __DIR__ . "/inc/_"
 require __DIR__ .  "/../../config/conn.php";
@@ -18,10 +19,22 @@ include __DIR__ . "/../views.php";
 
 // echo __DIR__;
 
+$sql = new sql_info;
+
 ?>
 
+<style>
+    body{
+        background-color: white !important;
+    }
+</style>
 
-<main class="bg-light">
+<script>
+    // this js code is to remove secondary bg color from body as a body class
+    var body =document.body.classList.remove('bg-secondary');
+</script>
+
+<main class="">
     <!-- Welcome to the banking system -->
     <?php
 
@@ -89,33 +102,43 @@ include __DIR__ . "/../views.php";
 
 
             <div class="container-fluid mb-0">
-
+<div class="container text-center fs-4 mb-4">
+    Lokeshwar Bank Limited
+</div>
 <div class="container">
     <div class="row">
-        <div class="col-12 fs-4 mb-4 text-center">
-            Lokeshwar Bank Limited
-        </div>
-        <div class="col-12">
-            Account No: <b> #lokbank-125325232452-svs-ac-12525</b>
-        </div>
-        <div class="col-6">
-           Account Holder Name: <b>Lokeshwar Deb</b>
-        </div>
-        <div class="col-6">
-            Age: <b>18 years</b>
-        </div>
-        <div class="col-6">
-            Account Type: <b>Savings account</b>
-        </div>
-        <div class="col-6">
-            Account Created on: <b>25/6/2023</b>
-        </div>
-        <div class="col-6">
-            Current Address: <b>Paikpara, Brahamanbaria</b>
-        </div>
-        <div class="col-6">
-            Permanent Address: <b>Paikpara, Brahamanbaria</b>
-        </div>
+    <?php 
+
+  $ac_no =   $sql->get_html_special($_GET['ac_no']);
+           
+           $result = $sql->all_where_sql('ac_holders', 'account_no', "$ac_no");
+            while($row = $result->fetch_assoc()){
+                echo '
+                <div class="col-12">
+                    Account No: <b> #' . $ac_no . '</b>
+                    <!-- Account No: <b> #lokbank-125325232452-svs-ac-12525</b> -->
+                </div>
+                <div class="col-6">
+                   Account Holder Name: <b>'.$row['ac_holder_name'].'</b>
+                </div>
+                <div class="col-6">
+                    Age: <b>'.$row['ac_holder_age'].'</b>
+                </div>
+                <div class="col-6">
+                    Account Type: <b>'.$row['ac_type'].'</b>
+                </div>
+                <div class="col-6">
+                    Account Created on: <b>'.$row['datetime'].'</b>
+                </div>
+                <div class="col-6">
+                    Current Address: <b>'.$row['ac_holder_c_address'].'</b>
+                </div>
+                <div class="col-6">
+                    Permanent Address: <b>'.$row['ac_holder_p_address'].'</b>
+                </div>';
+            }
+            
+         ?>
     </div>
 </div>
 
@@ -125,23 +148,42 @@ include __DIR__ . "/../views.php";
 
     </div> -->
 
-    <div class="text-center fs-4 fw-bold mb-4 mt-4 pt-4">
+    
+                        <div class="text-center fs-4 fw-bold mb-4 mt-4 pt-4">
                             Current Balance
 
                         </div>
                         <div class="container text-center text-warning mt-4 mb-4 fs-4 ">
                            <span class="bg-dark p-3">
-                          tk 4545
+                          TK.
+                          <?php
+
+           
+$result = $sql->all_where_sql('ac_holders', 'account_no', "$ac_no");
+while($row = $result->fetch_assoc()){
+    if($row['ac_holder_current_balance'] == ''){
+        echo 0;
+    }else{
+        echo $row['ac_holder_current_balance'];
+
+    }
+}
+
+
+
+        
+    ?>
                            </span> 
                         </div>
 
-    <table class="table">
+    <table class="table mb-5 pb-5">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Event name (Cash in / Cash out)</th>
-                            <th scope="col">Requested by (for the event)</th>
-                            <th scope="col">Date of the Event (Cash-in / Cash-out)</th>
+                        <th scope="col">#</th>
+                            <th scope="col">Transaction Type (Cash in / Cash out)</th>
+                            <th scope="col">Requested by (for the Transaction)</th>
+                            <th scope="col">Transaction Amount</th>
+                            <th scope="col">Date of the Transaction (Cash-in / Cash-out)</th>
                             <th scope="col">Last balance</th>
                         </tr>
                     </thead>
@@ -156,8 +198,8 @@ include __DIR__ . "/../views.php";
 
                         <?php
 
-                        $sql = new sql_info();
-                        $result = $sql->all_sql_info("ac_holders");
+$sql = new sql_info();
+$result = $sql->all_where_sql("ac_transactions", "account_no", "$ac_no");
 
                         $num  =  $result->num_rows;
 
@@ -168,12 +210,13 @@ include __DIR__ . "/../views.php";
 
                                 echo '
             
-            <tr>
-            <th scope="row">1</th>
-            <td>' . $row["account_no"] . '</td>
-            <td>' . $row["ac_holder_name"] . '</td>
-            <td >' . $row["datetime"] . '</td>
-            <td >556</td>
+                                <th scope="row">'.$sl_no.'</th>
+          
+                                <td>' . $row["transaction_info"] . '</td>
+                                <td>' . $row["requested_for_transaction"] . '</td>
+                                <td>TK. ' . $row["transaction_amount"] . '</td>
+                                <td >' . $row["transaction_datetime"] . '</td>
+                                <td >TK. ' . $row["last_balance_after_transaction"] . '</td>
           </tr>
             
             ';

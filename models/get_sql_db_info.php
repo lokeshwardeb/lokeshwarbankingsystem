@@ -53,14 +53,27 @@ class sql_info extends connect {
 
         return $result;
     }
-    public function transaction_join_sql(){
+    public function transaction_join_sql($account_no){
         // use comma (,) after each $row_name when it is more than once. here is the example bellow
         // get_sql_info("table_name", "row_name1, row_name2")
 
         // SELECT * FROM `ac_holders` ah JOIN ac_transactions act ON ah.account_no = act.account_no;
 
         
-        $transaction_sql = "SELECT * FROM `ac_holders` ah JOIN ac_transactions act ON ah.account_no = act.account_no;";
+        $transaction_sql = "SELECT * FROM `ac_holders` ah JOIN ac_transactions act ON ah.account_no = act.account_no WHERE  ah.account_no = '$account_no'; ";
+        $result = $this->db_connect()->query($transaction_sql);
+        
+
+        return $result;
+    }
+    public function transaction_sql($account_no){
+        // use comma (,) after each $row_name when it is more than once. here is the example bellow
+        // get_sql_info("table_name", "row_name1, row_name2")
+
+        // SELECT * FROM `ac_holders` ah JOIN ac_transactions act ON ah.account_no = act.account_no;
+
+        
+        $transaction_sql = "SELECT * FROM `ac_holders` WHERE account_no = '$account_no';";
         $result = $this->db_connect()->query($transaction_sql);
         
 
@@ -75,6 +88,19 @@ class sql_info extends connect {
         
         $update_sql = "UPDATE `$table_name` SET `$row_name` = '$value' WHERE `$table_name`.`$grab_point` = '$grab_point_value';";
         $result = $this->db_connect()->query($update_sql);
+        
+
+        return $result;
+    }
+    public function ac_holder_all_search_sql($search_txt){
+        // use comma (,) after each $row_name when it is more than once. here is the example bellow
+        // get_sql_info("table_name", "row_name1, row_name2")
+
+        // SELECT * FROM `ac_holders` ah JOIN ac_transactions act ON ah.account_no = act.account_no;
+
+        
+        $search_sql = "SELECT * FROM `ac_holders` WHERE `account_no` LIKE '%$search_txt%' OR `ac_holder_name` LIKE '%$search_txt%' OR `ac_holder_age` LIKE '%$search_txt%' OR `ac_type` LIKE '%$search_txt%' OR `ac_holder_c_address` LIKE '%$search_txt%' OR `ac_holder_p_address` LIKE '%$search_txt%' OR `datetime` = '$search_txt'";
+        $result = $this->db_connect()->query($search_sql);
         
 
         return $result;

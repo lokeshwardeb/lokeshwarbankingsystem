@@ -129,9 +129,131 @@ if($ac_type == ''){
     // exit;
 }
 $sql = new sql_info;
-$result = $sql->all_where_sql('ac_holders', 'ac_holder_name', 'ac_holder_name');
+// check the ac_holder_name on ac_holders
+$result = $sql->all_where_sql('ac_holders', "ac_holder_name", "$ac_holder_name");
+// if the result is > 0
 if($result->num_rows > 0){
+    // then check if ac_type on ac_holders
+$result_ac = $sql->all_where_sql('ac_holders', "ac_type", "$ac_type");
+
+if($result_ac->num_rows > 0){
     echo error_msg('User already exist ! Cannot make a account again !');
+
+}else{
+    // echo 'result not runs';
+
+    // if the result_ac not runs that means we have to add the user with the new account type and then the code below will run
+
+
+
+    
+if($ac_type !==''){
+
+    if($ac_type == 'Savings Account' && $ac_holder_age < 18 ){
+        echo error_msg("Under 18years old peoples cannot make savings account.");
+        
+    }else{
+        if($ac_holder_img !== ''){
+
+            $ac_starting_amount = $sql->get_html_special($_POST['ac_starting_amount']);
+
+    $ac_holder_img = $account_no . '_main.jpeg';
+
+    if($ac_starting_amount !== ''){
+$account_no;
+
+$trc_info = "Starting account amount Cash-in";
+
+$last_balance = $ac_starting_amount;
+        $transaction_insert_query = $sql->insert_sql('ac_transactions', "`account_no`,`transaction_info`,`transaction_amount`,`last_balance_after_transaction`", "'$account_no', '$trc_info','$ac_starting_amount','$last_balance'");
+
+        $insert_query = $sql->insert_sql('ac_holders', "`account_no`, `ac_holder_name`, `ac_holder_current_balance`,`account_status`,`ac_holder_age`, `ac_type`, `ac_holder_img`, `ac_holder_c_address`, `ac_holder_p_address`", "'$account_no', '$ac_holder_name', '$ac_starting_amount','Account Running','$ac_holder_age', '$ac_type', '$ac_holder_img', '$ac_holder_c_address', '$ac_holder_p_address'") ;
+
+        // require __DIR__ . "/../../assets/img/upload/ac_holders/img/"
+        
+                    // $image_dest = "/assets/img/upload/ac_holders/img/" . $account_no . '_main';
+                    $image_dest = __DIR__ . "/../../assets/img/upload/ac_holders/img/" . $account_no . '_main.jpeg';
+        
+                    compress_image($ac_holder_tmp_img, $image_dest, 60);
+        
+                if($insert_query){
+                   echo success_msg("Account has been created successfully");
+                }else{
+                   echo error_msg("Account cannot created successfully. Error occured");
+                }
+    }else{
+        echo error_msg("You have to add starting amount to your account to make an account. It is required");
+    }
+
+           
+        }else{
+
+            echo error_msg("Please Upload an Image to make an account. Image is required for making accounts");
+
+        //     $insert_query = $sql->insert_sql('ac_holders', "`account_no`, `ac_holder_name`, `ac_holder_age`, `ac_type`,  `ac_holder_c_address`, `ac_holder_p_address`", "'$account_no', '$ac_holder_name', '$ac_holder_age', '$ac_type', '$ac_holder_c_address', '$ac_holder_p_address'") ;
+
+
+        // if($insert_query){
+        //    echo success_msg("Account has been created successfully");
+        // }else{
+        //    echo error_msg("Account cannot created successfully. Error occured");
+        // }
+        }
+        
+    }
+
+    if($ac_type == 'Joint Account'){
+
+    $sc_ac_holder_name = $_POST['sc_ac_holder_name'];
+    $sc_ac_holder_age = $_POST['sc_ac_holder_age'];
+    $ac_type = $_POST['ac_type'];
+    // $sc_ac_holder_img = $_FILES['sc_ac_holder_img']['name'].'.jpeg';
+    $sc_ac_holder_tmp_img = $_FILES['sc_ac_holder_img']['tmp_name'];
+    $sc_ac_holder_c_address = $_POST['sc_ac_holder_c_address'];
+    $sc_ac_holder_p_address = $_POST['sc_ac_holder_p_address'];
+
+if($sc_ac_holder_img !==''){
+    $sc_ac_holder_img = $account_no . '_sc.jpeg';
+
+    $insert_query = $sql->insert_sql('ac_holders', "`account_no`, `ac_holder_name`,`account_status`, `ac_holder_age`, `ac_type`, `ac_holder_img`, `ac_holder_c_address`, `ac_holder_p_address`", "'$account_no', '$sc_ac_holder_name','Account Running', '$sc_ac_holder_age', '$ac_type', '$sc_ac_holder_img', '$sc_ac_holder_c_address', '$sc_ac_holder_p_address'") ;
+
+    // $image_dest = __DIR__ . "/assets/" . $account_no . '_sc';
+    // $image_dest = __DIR__ . "/assets/" . $account_no . '_sc';
+    $image_dest = __DIR__ . "/../../assets/img/upload/ac_holders/img/" . $account_no . '_sc.jpeg';
+    // $image_dest = "/assets/img/upload/ac_holders/img/" . $account_no . '_sc';
+
+    // __DIR__ . 
+
+    compress_image($sc_ac_holder_tmp_img, $image_dest,60);
+
+
+        if($insert_query){
+           echo success_msg("Account has been created successfully");
+        }else{
+           echo error_msg("Account cannot created successfully. Error occured");
+        }
+}else{
+    echo error_msg("Please Upload an Image to make an account. Image is required for making accounts");
+
+    // $insert_query = $sql->insert_sql('ac_holders', "`account_no`, `ac_holder_name`, `ac_holder_age`, `ac_type`, `ac_holder_c_address`, `ac_holder_p_address`", "'$account_no', '$sc_ac_holder_name', '$sc_ac_holder_age', '$ac_type',  '$sc_ac_holder_c_address', '$sc_ac_holder_p_address'") ;
+
+
+    // if($insert_query){
+    //    echo success_msg("Account has been created successfully");
+    // }else{
+    //    echo error_msg("Account cannot created successfully. Error occured");
+    // }
+}
+    
+    }
+
+
+
+}
+
+
+}
+
 }else{
 
 

@@ -74,7 +74,7 @@ include __DIR__ . "/../views.php";
 
 
    
-            <div class="col-10 bg-light" style="height: 100vh;">
+<div class="col-10 bg-light" style="min-height: 100vh; height:auto">
                 <div class="container-fluid">
                     <?php
                     include "inc/_search.php";
@@ -82,41 +82,160 @@ include __DIR__ . "/../views.php";
 
                     <div class="container-fluid mt-4">
                         <div class="row">
-                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">total user account holder</div>
-                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Admin Account holder</div>
-                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Savings Account Holder</div>
-                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Student Account Holder</div>
+                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total User Ac holder Accounts</div>
+                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Admin Ac holder Accounts</div>
+                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Savings Accounts </div>
+                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Students Accounts </div>
                         </div>
                         <div class="row">
-                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">1r</div>
-                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">4r</div>
-                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">8</div>
-                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">7</div>
+                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">
+                                <?php
+$sql = new sql_info;
+
+$result = $sql->all_sql_info("ac_holders");
+
+$num = $result->num_rows;
+
+echo $num;
+
+
+                                ?>
+                            </div>
+                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">
+                            <?php
+$sql = new sql_info;
+
+$result = $sql->all_sql_info("admin_users");
+
+$num = $result->num_rows;
+
+echo $num;
+
+
+                                ?>
+                            </div>
+                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">
+                            <?php
+$sql = new sql_info;
+
+$result = $sql->all_where_sql("ac_holders", "ac_type", "Savings Account");
+
+$num = $result->num_rows;
+
+echo $num;
+
+
+                                ?>
+                            </div>
+                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">
+                            <?php
+$sql = new sql_info;
+
+$result = $sql->all_where_sql("ac_holders", "ac_type", "Students Account");
+
+$num = $result->num_rows;
+
+echo $num;
+
+
+                                ?>
+                            </div>
                         </div>
                     </div>
 
                     <div class="container mt-4">
                         <div class="row">
                             <div class="col-3">
-                                <a href="">Create a new savings account</a>
+                                <a href="/create_account">Create a new savings account</a>
 
                             </div>
                             <div class="col-3">
-                                <a href="">Create a new savings account</a>
+                                <a href="/create_account">Create a new students account</a>
 
                             </div>
                             <div class="col-3">
-                                <a href="">Create a new savings account</a>
+                                <a href="/create_account">Create a new joint account</a>
 
                             </div>
                             <div class="col-3">
-                                <a href="">Create a new savings account</a>
+                                <a href="/create_account">Create a new bussiness account</a>
 
                             </div>
                         </div>
                     </div>
 
                 </div>
+
+
+
+                <div class="container-fluid mt-4">
+                <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Account No (Ac no)</th>
+      <th scope="col">Account Holder Name</th>
+      <th scope="col">Account Type</th>
+      <th scope="col">Account Created On</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <div class="text-center fs-4 fw-bold mb-4 mt-4 pt-4">
+    All Account holder details
+
+    </div>
+
+    <a href="/create_account"><button type="submit" class="btn btn-dark mb-4 btn-sm-sm">Create a Account</button></a>
+
+    <?php
+
+$sql = new sql_info;
+
+$result = $sql->all_where_sql("ac_holders", "account_status", "");
+
+        
+       $num  =  $result->num_rows;
+
+       if($num > 0 ){
+        $sl_no = 1;
+        while($row = $result->fetch_assoc()){
+            
+
+            echo '
+            
+            <tr>
+            <th scope="row">'.$sl_no.'</th>
+            <td>'.$row["account_no"].'</td>
+            <td>'.$row["ac_holder_name"].'</td>
+            <td>'.$row["ac_type"].'</td>
+            <td >'.$row["datetime"].'</td>
+            <td ><a href="/manage_account?ac_no='.$row['account_no'].'"><button class="btn btn-dark">Mannage account</button></a></td>
+          </tr>
+            
+            ';
+
+            $sl_no++;
+
+        }
+       }else{
+        
+        echo error_msg("The sheet has no entry");
+        // echo 'the sheet has no entry';
+       }
+
+
+    ?>
+
+
+  </tbody>
+</table>
+
+                </div>
+
+
+
+
 
             </div>
         </div>

@@ -19,6 +19,12 @@ $Routes = [
     '/print_ac_statement' =>__DIR__ .  "/controllers/print_ac_statement.php",
     '/create_account' =>__DIR__ .  "/controllers/create_account_form.php",
     '/make_transaction' =>__DIR__ .  "/controllers/make_transaction_form.php",
+    '/search' =>__DIR__ .  "/controllers/search_exe.php",
+    '/close_account' =>__DIR__ .  "/controllers/close_account.php",
+    '/total_fund' =>__DIR__ .  "/controllers/total_fund.php",
+    '/add_admin' =>__DIR__ .  "/controllers/add_admin.php",
+    '/login' =>__DIR__ .  "/controllers/login.php",
+    '/logout' =>__DIR__ .  "/controllers/logout.php",
 ];
 
 // checking if the requested url is registed on the route array

@@ -100,6 +100,9 @@ $ac_no = $sql->get_html_special($_GET['ac_no']);
             <div class="container-fluid mt-4">
 
 <div class="container">
+    <div class="text-center fs-4 mb-5">
+        Lokeshwar Bank Limited
+    </div>
     <div class="row">
     <?php 
            
@@ -111,10 +114,10 @@ $ac_no = $sql->get_html_special($_GET['ac_no']);
                     <!-- Account No: <b> #lokbank-125325232452-svs-ac-12525</b> -->
                 </div>
                 <div class="col-6">
-                   Account Holder Name: <b>'.$row['ac_holder_name'].'</b>
+                   Account Holder Name: <b>'.$ac_holder_name = $row['ac_holder_name'].'</b>
                 </div>
                 <div class="col-6">
-                    Age: <b>'.$row['ac_holder_age'].'</b>
+                    Age: <b>'.$row['ac_holder_age'].' years</b>
                 </div>
                 <div class="col-6">
                     Account Type: <b>'.$row['ac_type'].'</b>
@@ -157,8 +160,9 @@ while($row = $result->fetch_assoc()){
                             Current Balance
 
                         </div>
-                        <div class="container text-center text-warning mt-4 mb-4 fs-4 ">
+                        <div class="container text-center text-warning mt-4 mb-5 fs-4 ">
                            <span class="bg-dark p-3">
+                            TK.
                            <?php
 
            
@@ -176,8 +180,28 @@ while($row = $result->fetch_assoc()){
 
         
     ?>
+
+
+
+
+
                            </span> 
                         </div>
+
+
+                        <?php
+
+           
+$result = $sql->all_where_sql('ac_holders', 'account_no', "$ac_no");
+while($row = $result->fetch_assoc()){
+    echo '
+    <a href="manage_account?ac_no='.$ac_no.'"><button type="submit" class="btn btn-outline-dark me-4 mb-4 btn-sm-sm">Go back</button></a>
+    ';
+    echo '
+    <a href="print_ac_statement?ac_no='.$ac_no.'"><button type="submit" class="btn btn-dark mb-4 btn-sm-sm">Print Statement</button></a>
+    ';
+}
+                      ?>
 
 <?php
 if(isset($_POST['make_transaction'])){
@@ -186,44 +210,109 @@ if(isset($_POST['make_transaction'])){
     $trc_type = $_POST['trc_type'];
     $transaction_amount = $_POST['transaction_amount'];
 
-   $result =  $sql->transaction_join_sql();
+   $result =  $sql->transaction_sql($ac_no);
+   
 
 
    if($trc_type == 'Cash-in Transaction (add money)'){
     while($row = $result->fetch_assoc()){
+        // if($transaction_amount > $row['ac_holder_current_balance']){
+        //     echo error_msg("Insuffient Balance ! Your account doesnot have enough balance !");
+        // }else{
+        //     $last_balance =  $row['ac_holder_current_balance'] + $transaction_amount;
+
+        // }
+
         $last_balance =  $row['ac_holder_current_balance'] + $transaction_amount;
+        $sql->update_all_sql("ac_holders", "ac_holder_current_balance", "$last_balance", "account_no", "$ac_no");
+    echo success_msg("Transaction was successful");
+
+        echo '
+
+        <script>
+        window.location.href = "make_transaction?ac_no='.$ac_no.'"
+        </script>
+        ';
      }
+     
+    $account_no = $ac_no;
+
+    $trc_info = $trc_type;
+    
+    // $last_balance = $transaction_amount;
+            $transaction_insert_query = $sql->insert_sql('ac_transactions', "`account_no`,`transaction_info`,`requested_for_transaction`,`transaction_amount`,`last_balance_after_transaction`", "'$account_no', '$trc_info','$trc_requested_per_name','$transaction_amount','$last_balance'");
+    
    }
    if($trc_type == 'Cash-out Transaction (get money)'){
     while($row = $result->fetch_assoc()){
-        $last_balance =  $row['ac_holder_current_balance'] - $transaction_amount;
+        if($transaction_amount > $row['ac_holder_current_balance']){
+            echo error_msg("Insuffient Balance ! Your account doesnot have enough balance !");
+            // exit;
+        }else{
+
+            $last_balance =  $row['ac_holder_current_balance'] - $transaction_amount;
+
+            $sql->update_all_sql("ac_holders", "ac_holder_current_balance", "$last_balance", "account_no", "$ac_no");
+
+
+            $account_no = $ac_no;
+
+            $trc_info = $trc_type;
+            
+            // $last_balance = $transaction_amount;
+                    $transaction_insert_query = $sql->insert_sql('ac_transactions', "`account_no`,`transaction_info`,`requested_for_transaction`,`transaction_amount`,`last_balance_after_transaction`", "'$account_no', '$trc_info','$trc_requested_per_name','$transaction_amount','$last_balance'");
+
+    echo success_msg("Transaction was successful");
+
+
+            echo '
+
+            <script>
+            window.location.href = "make_transaction?ac_no='.$ac_no.'"
+            </script>
+            ';
+        }
      }
+     
+
+    
    }
    
-    $sql->update_all_sql("ac_holders", "ac_holder_current_balance", "$last_balance", "account_no", "$ac_no");
+    // $sql->update_all_sql("ac_holders", "ac_holder_current_balance", "$last_balance", "account_no", "$ac_no");
 
     // $last_balance = '';
 
-    $account_no = $ac_no;
+//     $account_no = $ac_no;
 
-$trc_info = $trc_type;
+// $trc_info = $trc_type;
 
-// $last_balance = $transaction_amount;
-        $transaction_insert_query = $sql->insert_sql('ac_transactions', "`account_no`,`transaction_info`,`transaction_amount`,`last_balance_after_transaction`", "'$account_no', '$trc_info','$transaction_amount','$last_balance'");
+// // $last_balance = $transaction_amount;
+//         $transaction_insert_query = $sql->insert_sql('ac_transactions', "`account_no`,`transaction_info`,`requested_for_transaction`,`transaction_amount`,`last_balance_after_transaction`", "'$account_no', '$trc_info','$trc_requested_per_name','$transaction_amount','$last_balance'");
 
     // $sql->insert_sql('ac_transactions', "`account_no`, `transaction_info`, `transaction_amount`, `last_balance_after_transaction`", "'$ac_no', '$trc_type', '$trc_requested_per_name', '$transaction_amount', '$last_balance'");
 
-    echo success_msg("Transaction was successful");
-   header("location: make_transaction_form.php");
-   echo '
+//    header("location: make_transaction");
+//    echo '
 
-<script>
-window.location.href = "make_transaction?ac_no='.$ac_no.'"
-</script>
-';
+// <script>
+// window.location.href = "make_transaction?ac_no='.$ac_no.'"
+// </script>
+// ';
 
 
 }
+
+$result = $sql->all_where_sql("ac_holders", "account_no", "$ac_no");
+
+if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
+        $account_holder_name = $row['ac_holder_name'];
+    }
+}
+
+
+
+
 ?>
 
 
@@ -233,7 +322,7 @@ window.location.href = "make_transaction?ac_no='.$ac_no.'"
     <div class="container form mb-5">
         
     <label for="inputPassword5" class="form-label">Requested for the Transaction person Name</label>
-<input name="trc_requested_per_name" type="text" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock">
+<input name="trc_requested_per_name" value="<?php echo $account_holder_name . ' ' . '(owner)' ?>" type="text" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock">
 <div id="passwordHelpBlock" class="form-text">
   Please Upload the information correctly
 </div>

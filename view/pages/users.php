@@ -82,16 +82,64 @@ include __DIR__ . "/../views.php";
 
                     <div class="container-fluid mt-4">
                         <div class="row">
-                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">total user account holder</div>
-                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Admin Account holder</div>
-                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Savings Account Holder</div>
-                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Student Account Holder</div>
+                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total User Ac holder Accounts</div>
+                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Admin Ac holder Accounts</div>
+                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Savings Accounts </div>
+                            <div class="col-3 bg-success text-light p-3 border-5 border-end border-light">Total Students Accounts </div>
                         </div>
                         <div class="row">
-                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">1r welcome to users</div>
-                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">4r</div>
-                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">8</div>
-                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">7</div>
+                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">
+                                <?php
+$sql = new sql_info;
+
+$result = $sql->all_sql_info("ac_holders");
+
+$num = $result->num_rows;
+
+echo $num;
+
+
+                                ?>
+                            </div>
+                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">
+                            <?php
+$sql = new sql_info;
+
+$result = $sql->all_sql_info("admin_users");
+
+$num = $result->num_rows;
+
+echo $num;
+
+
+                                ?>
+                            </div>
+                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">
+                            <?php
+$sql = new sql_info;
+
+$result = $sql->all_where_sql("ac_holders", "ac_type", "Savings Account");
+
+$num = $result->num_rows;
+
+echo $num;
+
+
+                                ?>
+                            </div>
+                            <div class="col-3 bg-dark text-light p-3 border-5 border-end border-light">
+                            <?php
+$sql = new sql_info;
+
+$result = $sql->all_where_sql("ac_holders", "ac_type", "Students Account");
+
+$num = $result->num_rows;
+
+echo $num;
+
+
+                                ?>
+                            </div>
                         </div>
                     </div>
 
@@ -127,6 +175,7 @@ include __DIR__ . "/../views.php";
       <th scope="col">#</th>
       <th scope="col">Account No (Ac no)</th>
       <th scope="col">Account Holder Name</th>
+      <th scope="col">Account Type</th>
       <th scope="col">Account Created On</th>
       <th scope="col">Action</th>
     </tr>
@@ -154,9 +203,10 @@ include __DIR__ . "/../views.php";
             echo '
             
             <tr>
-            <th scope="row">1</th>
+            <th scope="row">'.$sl_no.'</th>
             <td>'.$row["account_no"].'</td>
             <td>'.$row["ac_holder_name"].'</td>
+            <td>'.$row["ac_type"].'</td>
             <td >'.$row["datetime"].'</td>
             <td ><a href="/manage_account?ac_no='.$row['account_no'].'"><button class="btn btn-dark">Mannage account</button></a></td>
           </tr>

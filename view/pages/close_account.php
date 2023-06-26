@@ -1,6 +1,12 @@
+<style>
+    body{
+        background-color: white;
+    }
+</style>
 <?php
 $website_name = "lokbanksys";
 // include __DIR__ . "/../../inc/_header.php";
+
 require __DIR__ . "/inc/_header.php";
 // require __DIR__ . "/inc/_"
 require __DIR__ .  "/../../config/conn.php";
@@ -12,16 +18,23 @@ include __DIR__ . "/../views.php";
 // $sql->all_sql_info('admin_users');
 
 // echo __DIR__;
-// $connect = new connect;
-
 
 $sql = new sql_info;
 
-
 ?>
 
+<style>
+    body{
+        background-color: white !important;
+    }
+</style>
 
-<main class="bg-dark">
+<script>
+    // this js code is to remove secondary bg color from body as a body class
+    var body =document.body.classList.remove('bg-secondary');
+</script>
+
+<main class="">
     <!-- Welcome to the banking system -->
     <?php
 
@@ -69,9 +82,9 @@ $sql = new sql_info;
 
     ?>
 
-    <div class="container-fluid " style="min-height:100vh; height: auto;">
+    <div class="container-fluid pt-4" style="min-height: 100vh; height:auto">
         <?php
-        include "inc/_navbar.php";
+        // include "inc/_navbar.php";
 
 
 
@@ -79,32 +92,24 @@ $sql = new sql_info;
 
 
 
-        <div class="col-10 bg-light" style="min-height:100vh;height: auto;">
+        <div class="col-12 bg-light" style="min-height:100vh; height: auto;">
             
 <!-- <div class="container-fluid mt-4">
 <?php
-                    include "inc/_search.php";
+                    // include "inc/_search.php";
                     ?>
 </div> -->
 
-<?php
 
-
-$ac_no = $sql->get_html_special($_GET['ac_no']);
-
-
-
-?>
-
-
-            <div class="container-fluid mt-4">
-
+            <div class="container-fluid mb-0">
+<div class="container text-center fs-4 mb-4">
+    Lokeshwar Bank Limited
+</div>
 <div class="container">
-<div class="text-center fs-4 mb-5">
-        Lokeshwar Bank Limited
-    </div>
     <div class="row">
     <?php 
+
+  $ac_no =   $sql->get_html_special($_GET['ac_no']);
            
            $result = $sql->all_where_sql('ac_holders', 'account_no', "$ac_no");
             while($row = $result->fetch_assoc()){
@@ -117,7 +122,7 @@ $ac_no = $sql->get_html_special($_GET['ac_no']);
                    Account Holder Name: <b>'.$row['ac_holder_name'].'</b>
                 </div>
                 <div class="col-6">
-                    Age: <b>'.$row['ac_holder_age'].' years</b>
+                    Age: <b>'.$row['ac_holder_age'].'</b>
                 </div>
                 <div class="col-6">
                     Account Type: <b>'.$row['ac_type'].'</b>
@@ -137,30 +142,18 @@ $ac_no = $sql->get_html_special($_GET['ac_no']);
     </div>
 </div>
 
-<div class="container ">
-    <div class="container ">
-        
-        <?php
+<div class="container">
+    <!-- <div class="container ms-5 ps-5">
+    <img src="../../assets/img/upload/ac_holders/img/download-cs.png" width="auto" height="400px" class="ms-5 ps-5 text-center mt-4" alt="" srcset="">
 
-           
-$result = $sql->all_where_sql('ac_holders', 'account_no', "$ac_no");
-while($row = $result->fetch_assoc()){
-    echo '
-    <img src="/assets/img/upload/ac_holders/img/'.$row['ac_holder_img'].'" width="auto" height="400px" class="ms-5 ps-5 text-center mt-4" alt="" srcset="">
-    ';
-}
+    </div> -->
 
-
-
-        
-    ?>
-    </div>
-
-    <div class="text-center fs-4 fw-bold mb-4 mt-4 pt-4">
+    
+                        <div class="text-center fs-4 fw-bold mb-4 mt-4 pt-4">
                             Current Balance
 
                         </div>
-                        <div class="container text-center text-warning mt-4 pb-4 mb-4 fs-4 ">
+                        <div class="container text-center text-warning mt-4 mb-4 fs-4 ">
                            <span class="bg-dark p-3">
                           TK.
                           <?php
@@ -182,42 +175,120 @@ while($row = $result->fetch_assoc()){
     ?>
                            </span> 
                         </div>
-
-
-
-
-
-                        
-
-
-
-
-
-
-
 <?php
+$sql = new sql_info;
 
 
 
-$result = $sql->all_where_sql('ac_holders', 'account_no', "$ac_no");
+if(isset($_POST['close_account'])){
+$enter_ac_name = $sql->get_html_special($_POST['enter_ac_name']);
+
+$result = $sql->all_where_sql("ac_holders", "account_no", "$ac_no");
 while($row = $result->fetch_assoc()){
-$account_status = $row['account_status'];
+  $account_holder_name =   $row['ac_holder_name'];
+}
 
-if($account_status == "Account Closed"){
-    echo '<table class="table mb-5 pb-5 ">';
+if($enter_ac_name == $account_holder_name){
+    $result = $sql->update_all_sql("ac_holders", "account_status", "Account Closed", "account_no", "$ac_no");
+
+  echo  success_msg("Account has been closed successfully !");
 
 }else{
-    echo '<table class="table mb-5 pb-5">';
 
 }
 
 
 
 
-} ?>
+}
+
+
+
+?>
+                        <div class="container mt-4 pt-4 ">
+                            <?php
+
+
+$result = $sql->all_where_sql("ac_holders", "account_no", "$ac_no");
+while($row = $result->fetch_assoc()){
+  $account_status =   $row['account_status'];
+}
+
+if($account_status == 'Account Closed'){
+echo '
+<div class="container">
+<div class="main fw-bold fs-4 text-center text-danger">
+Your account is closed
+
+</div>
+<div class="note fs-5  text-center text-dark mb-4">
+Note: You cannot reactivate the account after closing it. All of the access has been removed from this account and all the transaction is closed.
+</div>
+</div>
+';
+}else{
+    echo '
+    <div class="container">
+    <div class="main fw-bold fs-4 text-center text-danger">
+    Are your really want to close the account ?
+
+    </div>
+    <div class="note fs-5  text-center text-dark mb-4">
+Note: You cannot reactivate the account after closing it.
+    </div>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Close Account
+   </button>
+    </div>
+    ';
+}
+
+
+                            ?>
+                           
+                         
+                            <div class="container m-auto text-center">
+                           
+<form action="" method="post">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <span class="text-dark fw-bold">
+            Enter ac holders name to close the account
+        </span>
+        
+        <div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input name="enter_ac_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+        <button name="close_account" type="submit" class="btn btn-outline-danger">I confirm, close account</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</form>
+                       <a href="/"><button type="submit" class="btn btn-outline-dark mt-4 ms-4 mb-4 btn-sm-sm d-print-none" >go back</button></a>
+                            </div>
+
+                           <!-- Button trigger modal -->
+
+</div>
+
+    <!-- <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                        <th scope="col">#</th>
                             <th scope="col">Transaction Type (Cash in / Cash out)</th>
                             <th scope="col">Requested by (for the Transaction)</th>
                             <th scope="col">Transaction Amount</th>
@@ -231,158 +302,29 @@ if($account_status == "Account Closed"){
 
                         </div>
 
-                        <?php
-
-           
-$result = $sql->all_where_sql('ac_holders', 'account_no', "$ac_no");
-while($row = $result->fetch_assoc()){
-   $account_status =  $row['account_status'];
-   if($account_status == 'Account Closed'){
-
-   }else{
-    echo '
-    <a href="print_ac_statement?ac_no='.$ac_no.'"><button type="submit" class="btn btn-dark mb-4 btn-sm-sm">Print Statement</button></a>
-    ';
-   }
-    
-}
-                      ?>
-
-
-                   
-                      
-                      <?php
-
-           
-$result = $sql->all_where_sql('ac_holders', 'account_no', "$ac_no");
-while($row = $result->fetch_assoc()){
-   $account_status_new =  $row['account_status'];
-
-   if($account_status_new == 'Account Closed'){
-    echo '
-
-        <div class="container fs-5 text-center m-auto pb-4 fw-bold text-dark">
-            Account Status: <span class="text-danger p-2 bg-dark">Account Closed</span>
-        </div>
-        ';
-   }else{
-
-    echo '
-
-        <div class="container fs-5 text-center m-auto pb-4 fw-bold text-dark">
-            Account Status: <span class="text-success p-2 bg-dark">Account Running</span>
-        </div>
-        ';
-
-    echo '
-    <a href="make_transaction?ac_no='.$ac_no.'"><button type="submit" class="btn btn-dark ms-4 mb-4 btn-sm-sm">Make Transaction</button></a>
-    ';
-    echo '
-    <a href="close_account?ac_no='.$ac_no.'"><button type="submit" class="btn btn-danger ms-4 mb-4 btn-sm-sm">Close Account</button></a>
-    ';
-    ?>
-
-    <?php
-
-    // if($account_status_new == 'Account Closed'){
-    //     echo '
-
-    //     <div class="container fs-5 text-center m-auto pb-4 fw-bold text-dark">
-    //         Account Status: <span class="text-success p-2 bg-dark">Account Running</span>
-    //     </div>
-    //     ';
-    // }else{
-    //     echo '
-
-    //     <div class="container fs-5 text-center m-auto pb-4 fw-bold text-dark">
-    //         Account Status: <span class="text-success p-2 bg-dark">Account not Running</span>
-    //     </div>
-    //     ';
-    // }
-
-   }
-    
-
-}
-
-
-
-
-
-// $result = $sql->all_where_sql("ac_holders", "account_no", "$ac_no");
-// while($row = $result->fetch_assoc()){
-//   $account_status =   $row['account_status'];
-// }
-
-// if($account_status == 'Account Closed'){
-// echo '
-// <div class="container">
-// <div class="main fw-bold fs-4 text-center text-danger">
-// Your account is closed
-
-// </div>
-// <div class="note fs-5  text-center text-dark mb-4">
-// Note: You cannot reactivate the account after closing it. All of the access has been removed from this account and all the transaction is closed.
-// </div>
-// </div>
-// ';
-// }else{
-//     echo '
-//     <div class="container">
-//     <div class="main fw-bold fs-4 text-center text-danger">
-//     Are your really want to close the account ?
-
-//     </div>
-//     <div class="note fs-5  text-center text-dark mb-4">
-// Note: You cannot reactivate the account after closing it.
-//     </div>
-//     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-//     Close Account
-//    </button>
-//     </div>
-//     ';
-// }
-
-
-                        
-
-
-                      ?>
-
-
-                      <!-- <a href="make_transaction?"><button type="submit" class="btn btn-dark ms-4 mb-4 btn-sm-sm">Make Transaction</button></a> -->
+                       
 
                         <?php
 
-                        $sql = new sql_info();
-                        $result = $sql->all_where_sql("ac_transactions", "account_no", "$ac_no");
-                        // $result = $sql->all_sql_info("ac_holders");
+$sql = new sql_info();
+$result = $sql->all_where_sql("ac_transactions", "account_no", "$ac_no");
 
                         $num  =  $result->num_rows;
-
-                        
 
                         if ($num > 0) {
                             $sl_no = 1;
                             while ($row = $result->fetch_assoc()) {
-//                                 $account_status =   $row['account_status'];
 
-// if($account_status == "Account Closed"){
 
-// }else{
-    
-// }
                                 echo '
             
-            <tr>
-            <th scope="row">'.$sl_no.'</th>
+                                <th scope="row">'.$sl_no.'</th>
           
-            <td>' . $row["transaction_info"] . '</td>
-            <td>' . $row["requested_for_transaction"] . '</td>
-            <td>TK. ' . $row["transaction_amount"] . '</td>
-            <td >' . $row["transaction_datetime"] . '</td>
-            <td >TK. ' . $row["last_balance_after_transaction"] . '</td>
-          
+                                <td>' . $row["transaction_info"] . '</td>
+                                <td>' . $row["requested_for_transaction"] . '</td>
+                                <td>TK. ' . $row["transaction_amount"] . '</td>
+                                <td >' . $row["transaction_datetime"] . '</td>
+                                <td >TK. ' . $row["last_balance_after_transaction"] . '</td>
           </tr>
             
             ';
@@ -400,7 +342,7 @@ while($row = $result->fetch_assoc()){
 
 
                     </tbody>
-                </table>
+                </table> -->
 
 
 

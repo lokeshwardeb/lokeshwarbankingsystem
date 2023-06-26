@@ -1,4 +1,5 @@
 <?php
+session_start();
 require __DIR__ .  "/functions.php";
 
 
@@ -14,3 +15,16 @@ require __DIR__ .  "/functions.php";
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="bg-secondary">
+    <?php
+
+if(!isset($_SESSION['admin_username'])){
+    echo '
+    <script>
+    window.location.href="login"
+    </script>
+    
+    ';
+}else{
+    
+}
+    ?>
