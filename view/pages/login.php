@@ -122,7 +122,14 @@ $_SESSION['admin_email'] = $row['admin_email'];
 $_SESSION['admin_photo'] = $row['admin_ac_holder_img'];
 $_SESSION['loggedin'] = true;
 success_msg("You have successfully loggedin");
-header("location: dashboard");
+// header("location: dashboard");
+
+echo '
+<script>
+window.location.href = "dashboard"
+</script>
+';
+
         }else{
             $_SESSION['loggedin'] = false;
             echo error_msg("Password does not match ! Please Give the Correct password");
