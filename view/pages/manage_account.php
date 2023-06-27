@@ -114,7 +114,7 @@ $ac_no = $sql->get_html_special($_GET['ac_no']);
                     <!-- Account No: <b> #lokbank-125325232452-svs-ac-12525</b> -->
                 </div>
                 <div class="col-6">
-                   Account Holder Name: <b>'.$row['ac_holder_name'].'</b>
+                   Account Holder Name: <b>'.$ac_holder_name = $row['ac_holder_name'].'</b>
                 </div>
                 <div class="col-6">
                     Age: <b>'.$row['ac_holder_age'].' years</b>
@@ -125,12 +125,26 @@ $ac_no = $sql->get_html_special($_GET['ac_no']);
                 <div class="col-6">
                     Account Created on: <b>'.$row['datetime'].'</b>
                 </div>
+
+                 <div class="col-6">
+                    Email Address: <b>'.$row['ac_holder_email'].'</b>
+                </div>
+
+                 <div class="col-6">
+                    Mobile No: <b>'.$row['ac_holder_mobile_no'].'</b>
+                </div>
+
                 <div class="col-6">
                     Current Address: <b>'.$row['ac_holder_c_address'].'</b>
                 </div>
                 <div class="col-6">
                     Permanent Address: <b>'.$row['ac_holder_p_address'].'</b>
-                </div>';
+                </div>
+              
+                
+                
+                
+                ';
             }
             
          ?>

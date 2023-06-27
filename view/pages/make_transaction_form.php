@@ -6,6 +6,8 @@ require __DIR__ . "/inc/_header.php";
 require __DIR__ .  "/../../config/conn.php";
 include __DIR__ . "/../../models/get_sql_db_info.php";
 include __DIR__ . "/../views.php";
+require "inc/mail_template.php";
+require "sent_mail.php";
 // require __DIR__ . "/inc/const.php";
 
 // $sql = new mysqli()
@@ -125,12 +127,26 @@ $ac_no = $sql->get_html_special($_GET['ac_no']);
                 <div class="col-6">
                     Account Created on: <b>'.$row['datetime'].'</b>
                 </div>
+
+                 <div class="col-6">
+                    Email Address: <b>'.$row['ac_holder_email'].'</b>
+                </div>
+
+                 <div class="col-6">
+                    Mobile No: <b>'.$row['ac_holder_mobile_no'].'</b>
+                </div>
+
                 <div class="col-6">
                     Current Address: <b>'.$row['ac_holder_c_address'].'</b>
                 </div>
                 <div class="col-6">
                     Permanent Address: <b>'.$row['ac_holder_p_address'].'</b>
-                </div>';
+                </div>
+              
+                
+                
+                
+                ';
             }
             
          ?>
@@ -148,6 +164,11 @@ while($row = $result->fetch_assoc()){
     echo '
     <img src="/assets/img/upload/ac_holders/img/'.$row['ac_holder_img'].'" width="auto" height="400px" class="ms-5 ps-5 text-center mt-4" alt="" srcset="">
     ';
+
+    $ac_holder_email = $row['ac_holder_email'];
+
+    $account_mail_hold_name = $row['ac_holder_name'];
+
 }
 
 
@@ -200,6 +221,12 @@ while($row = $result->fetch_assoc()){
     echo '
     <a href="print_ac_statement?ac_no='.$ac_no.'"><button type="submit" class="btn btn-dark mb-4 btn-sm-sm">Print Statement</button></a>
     ';
+
+    $ac_holder_get_form_email = $row['ac_holder_email'];
+    $ac_type = $row['ac_type'];
+
+
+
 }
                       ?>
 
@@ -211,6 +238,8 @@ if(isset($_POST['make_transaction'])){
     $transaction_amount = $_POST['transaction_amount'];
 
    $result =  $sql->transaction_sql($ac_no);
+
+   $account_no = $ac_no;
    
 
 
@@ -225,6 +254,9 @@ if(isset($_POST['make_transaction'])){
 
         $last_balance =  $row['ac_holder_current_balance'] + $transaction_amount;
         $sql->update_all_sql("ac_holders", "ac_holder_current_balance", "$last_balance", "account_no", "$ac_no");
+
+        sent_mail("Lokeshwar Bank Limited", $ac_holder_get_form_email, $ac_holder_name, $ac_type . " Transaction was successful - Lokeshwar bank Limited", mail_template_new("Lokeshwar Bank Limited", "transaction", $ac_type, $account_no, $account_mail_hold_name, $transaction_amount, $trc_type, $last_balance));
+
     echo success_msg("Transaction was successful");
 
         echo '
@@ -261,6 +293,29 @@ if(isset($_POST['make_transaction'])){
             
             // $last_balance = $transaction_amount;
                     $transaction_insert_query = $sql->insert_sql('ac_transactions', "`account_no`,`transaction_info`,`requested_for_transaction`,`transaction_amount`,`last_balance_after_transaction`", "'$account_no', '$trc_info','$trc_requested_per_name','$transaction_amount','$last_balance'");
+
+                    // if the transaction was successfull then sent and email to the account holder email address if the email address exist on the form
+                    if($ac_holder_email !== ''){
+    //                     mixed $website_name = "Lokeshwar Fashion House",
+    // mixed $select_template,
+    // mixed $username,
+    // mixed $account_type = "",
+    // mixed $account_no = "",
+    // mixed $ac_holder_name = "",
+    // mixed $transaction_amount = "",
+    // mixed $transaction_type = "",
+    // mixed $transaction_last_balance = "",
+    // mixed $order_no = "",
+    // mixed $order_phone_no = ""
+
+                        
+                                    
+// mail
+
+sent_mail("Lokeshwar Bank Limited", $ac_holder_get_form_email, $account_mail_hold_name, $ac_type . " Transaction was successful - Lokeshwar bank Limited", mail_template_new("Lokeshwar Bank Limited", "transaction",  $ac_type, $account_no, $account_mail_hold_name, $transaction_amount, $trc_type, $last_balance));
+
+                    }
+
 
     echo success_msg("Transaction was successful");
 

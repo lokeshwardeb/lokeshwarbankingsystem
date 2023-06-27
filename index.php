@@ -25,6 +25,9 @@ $Routes = [
     '/add_admin' =>__DIR__ .  "/controllers/add_admin.php",
     '/login' =>__DIR__ .  "/controllers/login.php",
     '/logout' =>__DIR__ .  "/controllers/logout.php",
+    '/create_bank_account' =>__DIR__ .  "/controllers/create_bank_account.php",
+    '/forgot_pass' =>__DIR__ .  "/controllers/forgot_password.php",
+    '/fp_pass' =>__DIR__ .  "/controllers/fp_pass.php",
 ];
 
 // checking if the requested url is registed on the route array

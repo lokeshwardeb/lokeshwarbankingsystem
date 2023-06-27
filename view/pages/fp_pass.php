@@ -9,6 +9,8 @@ require __DIR__ .  "/../../config/conn.php";
 include __DIR__ . "/../../models/get_sql_db_info.php";
 include __DIR__ . "/../views.php";
 require __DIR__ . "/inc/functions.php";
+require "sent_mail.php";
+require "inc/mail_template.php";
 // require __DIR__ . "/inc/const.php";
 
 // $sql = new mysqli()
@@ -96,7 +98,19 @@ $sql = new sql_info;
   </head>
   <body class="text-center bg-light">
 
- 
+ <?php
+
+if(!isset($_SESSION['fp_admin_username'])){
+    echo '
+    <script>
+    window.location.href = "login"
+    </script>
+    ';
+   
+}
+
+
+?>
 
 
     
@@ -105,33 +119,46 @@ $sql = new sql_info;
 <?php
 $sql = new sql_info;
 
-if(isset($_POST['login'])){
-    $admin_username = $sql->get_html_special($_POST['admin_username']);
-    $admin_password = $sql->get_html_special($_POST['admin_password']);
+if(isset($_POST['update_pass'])){
+    $sub_otp = $sql->get_html_special($_POST['sub_otp']);
+    $new_password = $sql->get_html_special($_POST['new_password']);
+
+    $admin_username = $_SESSION['fp_admin_username'];
+
+    // $sql->all_where_sql("admin_users")
 
    $result =  $sql->all_where_sql("admin_users", "admin_username", "$admin_username");
 
    if($result->num_rows == 1){
     while($row = $result->fetch_assoc()){
-        $password = $row['admin_password'];
-        $verify_pass = password_verify($admin_password, $password);
-// echo 'this';
-        if($verify_pass == 1){
-$_SESSION['admin_username'] = $admin_username;
-$_SESSION['admin_email'] = $row['admin_email'];
-$_SESSION['admin_photo'] = $row['admin_ac_holder_img'];
-$_SESSION['loggedin'] = true;
-success_msg("You have successfully loggedin");
-header("location: dashboard");
-        }else{
-            $_SESSION['loggedin'] = false;
-            echo error_msg("Password does not match ! Please Give the Correct password");
-        }
-
+        $check_otp = $row['otp'];
     }
-   }else{
-    echo error_msg("User doesnot exist");
    }
+
+ if($check_otp == $sub_otp){
+    // $new_password;
+
+    $new_hash = password_hash($new_password, PASSWORD_DEFAULT);
+
+    $sql->update_all_sql("admin_users", "admin_password", "$new_hash", "admin_username", "$admin_username");
+
+    unset($_SESSION['fp_admin_username']);
+    unset($_SESSION['fp_pass']);
+
+   echo success_msg("Password has been changed successfully ! You can now login with your new password");
+
+    echo '
+    <a href="login"><button type="submit" class="btn btn-dark mb-4 btn-sm-sm">Go to login</button></a>
+    ';
+
+
+ }else{
+    echo error_msg("Otp doesnot match ! Please give the correct otp");
+ }
+
+ 
+
+   
 
     
 
@@ -156,15 +183,15 @@ header("location: dashboard");
 
   <form action="" method="post">
     <img class="mb-4 text-center" src="assets/img/upload/admin_ac_holders/img/1687793233_admin.jpeg" alt="" width="100px" height="100px" style="margin-left:0px;">
-    <h1 class="h3 mb-3 text-center fw-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 text-center fw-normal">Please Submit Your otp and new password</h1>
 
     <div class="form-floating">
-      <input type="text" name="admin_username" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Username</label>
+      <input type="text" name="sub_otp" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Submit Your Otp</label>
     </div>
     <div class="form-floating">
-      <input type="password" name="admin_password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
+      <input type="password" name="new_password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">New Password</label>
     </div>
 
     <div class="checkbox mb-3">
@@ -172,10 +199,8 @@ header("location: dashboard");
         <input type="checkbox" value="remember-me"> Remember me
       </label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" name="login" type="submit">Sign in</button>
+    <button class="w-100 btn btn-lg btn-primary" name="update_pass" type="submit">Sign in</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
-    <span>Are you have forgot your password ? Then please </span>
-    <a href="forgot_pass">restore password</a> immediately.
   </form>
 </main>
 

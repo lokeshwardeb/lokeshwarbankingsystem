@@ -186,7 +186,7 @@ echo $num;
 
     </div>
 
-    <a href="/create_account"><button type="submit" class="btn btn-dark mb-4 btn-sm-sm">Create a Account</button></a>
+    <a href="/create_bank_account"><button type="submit" class="btn btn-dark mb-4 btn-sm-sm">Create a Account</button></a>
 
     <?php
 

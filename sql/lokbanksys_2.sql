@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2023 at 10:24 PM
+-- Generation Time: Jun 26, 2023 at 08:40 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -37,8 +37,6 @@ CREATE TABLE `ac_holders` (
   `ac_holder_img` varchar(255) NOT NULL,
   `ac_holder_c_address` varchar(255) NOT NULL,
   `ac_holder_p_address` varchar(255) NOT NULL,
-  `ac_holder_email` varchar(255) NOT NULL,
-  `ac_holder_mobile_no` varchar(255) NOT NULL,
   `account_status` varchar(255) NOT NULL,
   `datetime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -47,22 +45,11 @@ CREATE TABLE `ac_holders` (
 -- Dumping data for table `ac_holders`
 --
 
-INSERT INTO `ac_holders` (`id`, `account_no`, `ac_holder_name`, `ac_holder_current_balance`, `ac_holder_age`, `ac_type`, `ac_holder_img`, `ac_holder_c_address`, `ac_holder_p_address`, `ac_holder_email`, `ac_holder_mobile_no`, `account_status`, `datetime`) VALUES
-(66, 'lokeshwarbank-66354225062023', 'Jhumur Roy', 0, '40', 'Savings Account', 'lokeshwarbank-66354225062023_main.jpeg', 'df', 'df', '', '', 'Account Closed', '2023-06-26 02:08:36'),
-(67, 'lokeshwarbank-67724925062023', 'Jhumur Roy', 2500, '40', 'Savings Account', 'lokeshwarbank-67724925062023_main.jpeg', 'df', 'df', '', '', 'Account Closed', '2023-06-26 02:08:59'),
-(72, 'lokeshwarbank-72971426062023', 'Sweety Vata', 2500, '40', 'Savings Account', 'lokeshwarbank-72971426062023_main.jpeg', 'Paikpara, Brahamanbaria', 'Paikpara, Brahamanbaria', '', '', '', '2023-06-26 23:35:21'),
-(74, 'lokeshwarbank-73887926062023', 'Lokeshwar Deb', 520, '18', 'Savings Account', 'lokeshwarbank-73887926062023_main.jpeg', 'Paikpara, Brahamanbaria', 'Paikpara, Brahamanbaria', '', '', '', '2023-06-27 00:25:36'),
-(75, 'lokeshwarbank-75244427062023', 'Lipi Roy', 100, '40', 'Savings Account', 'lokeshwarbank-75244427062023_main.jpeg', 'Paikpara, Brahamanbaria', 'Paikpara, Brahamanbaria', '', '', '', '2023-06-27 14:51:36'),
-(76, 'lokeshwarbank-76804227062023', 'Om', 500, '18', 'Savings Account', 'lokeshwarbank-76804227062023_main.jpeg', 'dfd', 's', '', '', '', '2023-06-27 18:13:13'),
-(77, 'd', 'g', 5, 's', 's', 'g', 'g', 'h', '', '', 's', '2023-06-27 18:56:03'),
-(78, 'lokeshwarbank-78284527062023', 'Lokeshwar Deb', 2000, '25', 'Savings Account', 'download (1).jpg', 'd', 'd', 'd@d.com', '01251212', 'Account Running', '2023-06-27 19:14:42'),
-(79, 'lokeshwarbank-79300927062023', 'Lokeshwar Deb', 2000, '25', 'Savings Account', 'download (1).jpg', 'd', 'd', 'd@d.com', '01251212', 'Account Running', '2023-06-27 19:15:14'),
-(80, 'lokeshwarbank-80415127062023', 'Lokeshwar Deb', 2000, '25', 'Savings Account', 'download (1).jpg', 'd', 'd', 'd@d.com', '01251212', 'Account Running', '2023-06-27 19:15:46'),
-(81, 'lokeshwarbank-81675727062023', 'Lr', 2000, '42', 'Savings Account', 'lokeshwarbank-81675727062023_main.jpeg', 'Bangladesh', 'Bangladesh', 'd@d.com', '0154545', 'Account Running', '2023-06-27 19:22:05'),
-(82, 'lokeshwarbank-82707827062023', 'david', 9320, '20', 'Student Account', 'lokeshwarbank-82707827062023_main.jpeg', 'fddd', 'ddfd', 'biratdeb82@gmail.com', '015545', 'Account Running', '2023-06-27 19:57:24'),
-(83, 'lokeshwarbank-83937227062023', 'e', 4545, '50', 'Savings Account', 'lokeshwarbank-83937227062023_main.jpeg', 'Bangladesh', 'df', 'lokeshwarfashionhouse@gmail.com', '56', 'Account Running', '2023-06-27 20:08:16'),
-(84, 'lokeshwarbank-84923827062023', 'cd', 5000, '45', 'Savings Account', 'lokeshwarbank-84923827062023_main.jpeg', 'Bangladesh', 'df', 'lokeshwarfashionhouse@gmail.com', '4545', 'Account Running', '2023-06-27 20:10:06'),
-(85, 'lokeshwarbank-85571927062023', 'lokeshwarfashionhouse@gmail.com', 2000, '45', 'Savings Account', 'lokeshwarbank-85571927062023_main.jpeg', 'Bangladesh', 's', 'lokeshwarfashionhouse@gmail.com', '454', 'Account Running', '2023-06-27 20:12:51');
+INSERT INTO `ac_holders` (`id`, `account_no`, `ac_holder_name`, `ac_holder_current_balance`, `ac_holder_age`, `ac_type`, `ac_holder_img`, `ac_holder_c_address`, `ac_holder_p_address`, `account_status`, `datetime`) VALUES
+(66, 'lokeshwarbank-66354225062023', 'Jhumur Roy', 0, '40', 'Savings Account', 'lokeshwarbank-66354225062023_main.jpeg', 'df', 'df', 'Account Closed', '2023-06-26 02:08:36'),
+(67, 'lokeshwarbank-67724925062023', 'Jhumur Roy', 2500, '40', 'Savings Account', 'lokeshwarbank-67724925062023_main.jpeg', 'df', 'df', 'Account Closed', '2023-06-26 02:08:59'),
+(72, 'lokeshwarbank-72971426062023', 'Sweety Vata', 2500, '40', 'Savings Account', 'lokeshwarbank-72971426062023_main.jpeg', 'Paikpara, Brahamanbaria', 'Paikpara, Brahamanbaria', '', '2023-06-26 23:35:21'),
+(74, 'lokeshwarbank-73887926062023', 'Lokeshwar Deb', 520, '18', 'Savings Account', 'lokeshwarbank-73887926062023_main.jpeg', 'Paikpara, Brahamanbaria', 'Paikpara, Brahamanbaria', '', '2023-06-27 00:25:36');
 
 -- --------------------------------------------------------
 
@@ -138,45 +125,7 @@ INSERT INTO `ac_transactions` (`id`, `account_no`, `transaction_info`, `requeste
 (54, 'lokeshwarbank-72971426062023', 'Cash-out Transaction (get money)', 'Sweety Vata (owner) (আমরা ঔষধ খেয়েছি ভাতার থেকে)1st vata', '1000', '0', '2023-06-26 23:57:30'),
 (55, 'lokeshwarbank-72971426062023', 'Cash-in Transaction (add money)', 'Sweety Vata (owner) (২বার ভাতা পেয়েছি - ২০/৬/২০২৩ ইং)', '2500', '2500', '2023-06-27 00:09:34'),
 (56, 'lokeshwarbank-73887926062023', 'Starting account amount Cash-in', '', '500', '500', '2023-06-27 00:25:36'),
-(57, 'lokeshwarbank-73887926062023', 'Cash-in Transaction (add money)', 'Lokeshwar Deb (owner)', '20', '520', '2023-06-27 00:26:15'),
-(58, 'lokeshwarbank-75244427062023', 'Starting account amount Cash-in', '', '100', '100', '2023-06-27 14:51:36'),
-(59, 'lokeshwarbank-76804227062023', 'Starting account amount Cash-in', '', '500', '500', '2023-06-27 18:13:13'),
-(60, 'd', 'd', 'd', '55', 'd', '2023-06-27 21:27:07'),
-(61, 'lokeshwarbank-82707827062023', 'Cash-out Transaction (get money)', 'david (owner)', '20', '1980', '2023-06-27 21:34:41'),
-(62, 'lokeshwarbank-82707827062023', 'Cash-out Transaction (get money)', 'david (owner)', '20', '1960', '2023-06-27 21:37:54'),
-(63, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '40', '2000', '2023-06-27 21:53:18'),
-(64, 'lokeshwarbank-82707827062023', 'Cash-out Transaction (get money)', 'david (owner)', '20', '1980', '2023-06-27 21:54:01'),
-(65, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '40', '2020', '2023-06-27 21:55:03'),
-(66, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '2220', '2023-06-27 22:11:04'),
-(67, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '2420', '2023-06-27 22:13:00'),
-(68, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '2620', '2023-06-27 22:15:09'),
-(69, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '400', '3020', '2023-06-27 22:23:13'),
-(70, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '100', '3120', '2023-06-27 23:12:31'),
-(71, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '100', '3220', '2023-06-27 23:59:50'),
-(72, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '3420', '2023-06-28 00:01:42'),
-(73, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '3620', '2023-06-28 00:03:31'),
-(74, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '3820', '2023-06-28 00:08:02'),
-(75, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '500', '4320', '2023-06-28 00:11:06'),
-(76, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '100', '4420', '2023-06-28 00:13:28'),
-(77, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '2500', '6920', '2023-06-28 00:17:36'),
-(78, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '7120', '2023-06-28 00:22:45'),
-(79, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '7320', '2023-06-28 00:25:47'),
-(80, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '7520', '2023-06-28 00:26:39'),
-(81, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '100', '7620', '2023-06-28 00:28:36'),
-(82, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '7820', '2023-06-28 00:32:09'),
-(83, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '8020', '2023-06-28 00:35:14'),
-(84, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '8220', '2023-06-28 00:37:33'),
-(85, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '8420', '2023-06-28 00:39:09'),
-(86, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '8620', '2023-06-28 00:41:03'),
-(87, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '8820', '2023-06-28 00:42:48'),
-(88, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '9020', '2023-06-28 00:44:05'),
-(89, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '9220', '2023-06-28 00:45:18'),
-(90, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '500', '9720', '2023-06-28 00:45:52'),
-(91, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '9920', '2023-06-28 00:52:03'),
-(92, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '10120', '2023-06-28 00:54:09'),
-(93, 'lokeshwarbank-82707827062023', 'Cash-in Transaction (add money)', 'david (owner)', '200', '10320', '2023-06-28 00:55:32'),
-(94, 'lokeshwarbank-82707827062023', 'Cash-out Transaction (get money)', 'david (owner)', '500', '9820', '2023-06-28 00:57:03'),
-(95, 'lokeshwarbank-82707827062023', 'Cash-out Transaction (get money)', 'david (owner)', '500', '9320', '2023-06-28 00:58:07');
+(57, 'lokeshwarbank-73887926062023', 'Cash-in Transaction (add money)', 'Lokeshwar Deb (owner)', '20', '520', '2023-06-27 00:26:15');
 
 -- --------------------------------------------------------
 
@@ -193,7 +142,6 @@ CREATE TABLE `admin_users` (
   `admin_ac_holder_img` varchar(255) NOT NULL,
   `admin_ac_holder_c_address` varchar(255) NOT NULL,
   `admin_ac_holder_p_address` varchar(255) NOT NULL,
-  `otp` varchar(255) NOT NULL,
   `datetime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -201,10 +149,10 @@ CREATE TABLE `admin_users` (
 -- Dumping data for table `admin_users`
 --
 
-INSERT INTO `admin_users` (`id`, `admin_username`, `admin_ac_holder_age`, `admin_password`, `admin_email`, `admin_ac_holder_img`, `admin_ac_holder_c_address`, `admin_ac_holder_p_address`, `otp`, `datetime`) VALUES
-(1, 'ff', '', 'dd', '', '', '', '', '', '2023-06-26 13:17:41'),
-(6, 'Lokeshwar Deb', '18', '$2y$10$7caSOg5lc6hbY3hqHm6N8udyW8baCc/AWSm.xW20jOACbehnlHmWi', 'biratdeb82@gmail.com', '1687796890_admin.jpeg', 'Bangladesh', 'b', '6776', '2023-06-26 22:28:10'),
-(7, 'Lipi Roy', '40', '$2y$10$lBDiT2L6BrFOVX0VsISUo.8JWBcAlT0ArnQSj/cj/y5V4gtP/sU/m', 'daviddeb8479@gmail.com', '1687801598_admin.jpeg', 'Bangladesh', 'd', '', '2023-06-26 23:46:38');
+INSERT INTO `admin_users` (`id`, `admin_username`, `admin_ac_holder_age`, `admin_password`, `admin_email`, `admin_ac_holder_img`, `admin_ac_holder_c_address`, `admin_ac_holder_p_address`, `datetime`) VALUES
+(1, 'ff', '', 'dd', '', '', '', '', '2023-06-26 13:17:41'),
+(6, 'Lokeshwar Deb', '18', '$2y$10$NKYnQ81pKE2lGZa1/7TTC.WOuNeauHdy8FmFyfkUeQTi4VMVnzVFm', 'daviddeb8479@gmail.com', '1687796890_admin.jpeg', 'Bangladesh', 'b', '2023-06-26 22:28:10'),
+(7, 'Lipi Roy', '40', '$2y$10$lBDiT2L6BrFOVX0VsISUo.8JWBcAlT0ArnQSj/cj/y5V4gtP/sU/m', 'daviddeb8479@gmail.com', '1687801598_admin.jpeg', 'Bangladesh', 'd', '2023-06-26 23:46:38');
 
 --
 -- Indexes for dumped tables
@@ -236,13 +184,13 @@ ALTER TABLE `admin_users`
 -- AUTO_INCREMENT for table `ac_holders`
 --
 ALTER TABLE `ac_holders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `ac_transactions`
 --
 ALTER TABLE `ac_transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
