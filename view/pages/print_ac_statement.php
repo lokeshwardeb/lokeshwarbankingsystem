@@ -1,13 +1,52 @@
+<?php
+session_start();
+// require __DIR__ .  "/functions.php";
+$website_name = "lokbanksys";
+
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $website_name ?> || Banking system</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-secondary">
+    <?php
+
+if(!isset($_SESSION['admin_username'])){
+    echo '
+    <script>
+    window.location.href="login"
+    </script>
+    
+    ';
+}else{
+    
+}
+    ?>
+
+
 <style>
     body{
         background-color: white;
     }
 </style>
 <?php
-$website_name = "lokbanksys";
-// include __DIR__ . "/../../inc/_header.php";
+// $website_name = "lokbanksys";
+// include __DIR__ . "/../../inc/_header.php";?>
 
-require __DIR__ . "/inc/_header.php";
+
+
+
+<?php
+
+// require __DIR__ . "/inc/_header.php";
 // require __DIR__ . "/inc/_"
 require __DIR__ .  "/../../config/conn.php";
 include __DIR__ . "/../../models/get_sql_db_info.php";
