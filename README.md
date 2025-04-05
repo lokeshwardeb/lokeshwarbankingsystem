@@ -11,10 +11,17 @@ This project is a banking software which depends on some basic operations and sa
 ### Key Features :
 This software has many features :
 
-The user can create an banking account or the savings account for saving money via the admin.
-The students can create an students account for the savings as they are students.
-It can be used for savings on personal usage.
-The users of the software can use this to track theri savings and personal finances.
+<ul>
+  <li>The user can create an banking account or the savings account for saving money via the admin.</li>
+  <li>The students can create an students account for the savings as they are students.</li>
+  <li>It can be used for savings on personal usage.</li>
+  <li>The users of the software can use this to track theri savings and personal finances.</li>
+</ul>
+
+    
+    
+    
+    
 Tech Stack
 List of Technologies
 These technologies are used in this project :
