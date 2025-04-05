@@ -1,6 +1,6 @@
 
 
-# <p align="center" > Lokeshwar banking system </p>
+# <p align="center" >  Lokeshwar banking system  </p>
 
 ## <p align="center" > A php based banking like software </p>
 
@@ -11,6 +11,11 @@
 <br>
 
 <img src="./assets/readme_assets/banking_sys_1.png">
+
+<br>
+<br>
+
+[See Project Details Here](https://lokeshwardebportfolio.epizy.com/projects/1)
 
 <br>
 <br>
