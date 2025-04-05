@@ -5,7 +5,15 @@
 ## <p align="center" > A php based banking like software </p>
 
 ## Project Description :
-This project is a banking software which depends on some basic operations and savings. It can be used as a personal banking or savings software for savings.
+<p>This project is a banking software which depends on some basic operations and savings. It can be used as a personal banking or savings software for savings.</p>
+
+<br>
+<br>
+
+<img src="./assets/readme_assets/banking_sys_1.png">
+
+<br>
+<br>
 
 
 ## Key Features :
