@@ -1,10 +1,3 @@
-<p align="center">
-  
-  <img src="https://example.com/your-image.png" alt="Project Screenshot" width="400"/><br>
-  <em>Figure 1: Project Screenshot</em>
-</p>
-
-
 
 
 # <p align="center" > Lokeshwar banking system </p>
