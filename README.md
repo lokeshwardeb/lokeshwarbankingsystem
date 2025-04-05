@@ -4,11 +4,11 @@
 
 ## <p align="center" > A php based banking like software </p>
 
-### Project Description :
+## Project Description :
 This project is a banking software which depends on some basic operations and savings. It can be used as a personal banking or savings software for savings.
 
 
-### Key Features :
+## Key Features :
 This software has many features :
 
 <ul>
@@ -19,43 +19,44 @@ This software has many features :
 </ul>
 
     
+   <br>
+   <br>
     
     
-    
-Tech Stack
-List of Technologies
-These technologies are used in this project :
+## <p align="center" > Tech Stack </p>
+### <p align="center" > List of Technologies </p>
+
+#### These technologies are used in this project :
+
 This software uses various kinds of technologies, such as :
 
-Frontend : Html, css, js, jquery
-Backend : PHP, AJAX
-Database : MySQL
+<p><b>Frontend</b> : Html, css, js, jquery</p>
+<p><b>Backend</b> : PHP, AJAX</p>
+<p><b>Database</b> : MySQL</p>
+<p><b>Frontend</b> : Html, css, js, jquery</p>
+
 And so on..
 
-Challenges & Solutions
-Challenges :
-I have faced various kinds of challenges while developing the software. Among them, them the most challenging thing was to manage the transactions of the software. To keep track the transaction between the user accounts was the most challenging thing in this project.
 
-Solutions :
-Finally, I have become successful to solve all the challanges and develop the software.
+## <p align="center" > Challenges & Solutions </p>
+### <p align="start" > Challenges : </p>
 
-Screenshot / Media
-Images :
-Project Image
+<p>I have faced various kinds of challenges while developing the software. Among them, them the most challenging thing was to manage the transactions of the software. To keep track the transaction between the user accounts was the most challenging thing in this project.</p>
 
-Previous
-Next
-Videos :
-No videos has been found
-User Feedback / Impact
-Testimonials
-This software was a great ! The software can be used for tracking personal savings and banking purposes. It was a great experience !
+### <p align="start" > Solutions : </p>
 
--- D.K Jon, Project manager, CK technologies Limited kjk
+<p>Finally, I have become successful to solve all the challanges and develop the software.</p>
+
+<br>
+<br>
 
 
-Previous
-Next
-Project Conclusion
-Closing Remarks
-This project was fun as well as very creative. I have lean a lot of things by doing this software. I was a great experience.
+
+## <p align="center" > Project Conclusion </p>
+### <p align="center" > Closing Remarks </p>
+
+<p>This project was fun as well as very creative. I have lean a lot of things by doing this software. I was a great experience.</p>
+
+
+<br>
+<br>
